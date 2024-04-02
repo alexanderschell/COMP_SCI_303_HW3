@@ -1,0 +1,148 @@
+#include <iostream>
+template<typename item_type>
+class queue { // setting up queue class
+
+
+    private:
+    item_type *ar; // array for the numbers
+    int num_items;
+    int capacity;
+    int first;
+    int last;
+
+    public:
+
+    queue(int size = 10) : capacity(size), first(0), last(-1), num_items(0) { // constructor
+        ar = new item_type[capacity];
+    }
+
+    ~queue() {delete[] ar;} // deconstructor
+
+
+    void push(const item_type& item) { // add item to the end of array
+        if (num_items == capacity) {
+            std::cout << "Queue is maxed out";
+            return;
+        }
+        num_items++;
+        last = (last - 1) % capacity; 
+        ar[last] = item; // change item
+    }
+
+    void pop() { // remove item from the beginning
+        if (num_items == 0) {
+            std::cout << "Queue is empty";
+            return;
+        }
+        first = (first + 1) % capacity;
+        num_items--;
+    }
+
+    item_type firstElement() { // returns the first element in the array
+        if (num_items == 0) {
+            std::cout << "Queue is empty";
+            return;
+        }
+        return ar[first];
+    }
+    
+    int array_size() {return num_items;} // gets size of array
+    
+    bool empty() { // checks if array is empty
+        return num_items == 0;
+    }
+
+/*
+move to rear takes the first element and moves it to the back of the array, pushing all other elements up one place. this is done by creating a temporary 
+copy of the first element, removing the first element, then adding the temp to the end.
+*/
+    void move_to_rear() { 
+        if (num_items <= 1) {
+            std::cout << "Need more elements";
+            return;
+        }
+        item_type temp = ar[first];
+        pop();
+        push(temp);
+    }
+
+
+};
+
+struct Node { // setting up the node class/struct
+    int value;
+    struct Node* next;
+    Node(int c) {
+        value = c;
+        next = NULL;
+    }
+};
+
+class insertSortList {
+    public:
+    Node* head; // beginning of list
+    Node* sortedList; // everything after this ref node has been sorted
+
+    void push(int value)
+     {
+    
+        Node* new_node = new Node(value); // creates new node
+
+        // Links the old list of the new node 
+        new_node->next = head;
+
+        // Moves the head to point to the new node 
+        head = new_node;
+     }
+
+     void sortedInsert(Node* new_node) 
+    { 
+        /* Special case for the head end */
+        if (sortedList == NULL || sortedList->value >= new_node->value) { 
+            new_node->next = sortedList; 
+            sortedList = new_node; 
+        } 
+        else { 
+            Node* current = sortedList; 
+            
+             
+            while (current->next != NULL// locate the node before the point of insertion 
+                   && current->next->value < new_node->value) { 
+                current = current->next; 
+            } 
+            new_node->next = current->next; 
+            current->next = new_node; 
+        } 
+    } 
+
+     void insertSort(Node* refHead) {
+    
+        sortedList = NULL;  // create the sorted list
+        Node* current = refHead; 
+        
+        while (current != NULL) { // traverses the linked list
+        
+            Node* next = current->next; 
+
+            
+            sortedInsert(current); // insert current node in linked list 
+            
+            current = next; // update current node
+        } 
+        
+        head = sortedList; // update refHead to point to sorted linked list 
+     }
+};
+
+int linear_search(vector<item_type>& items, item_type& target, size_t pos_last) {
+    if (items.size() == 0) { // checks for empty vector
+        return -1;
+    }
+    if (target == itmes[pos_last]) {
+        return pos_last;
+    }
+    else {
+        return linear_search(items, target, pos_last -1 );
+    }
+    
+}
