@@ -1,0 +1,42 @@
+int main() {
+    queue<int> Q;
+
+    for (int i = 1; i <= 10; i++) { // inserts ints 1-10 into array
+        Q.push(i);
+        }
+
+std::cout << "The QUEUE"; // prints out the queue
+    while (!Q.empty()) {
+        std::cout << Q.firstElement() << " ";
+        Q.pop();
+    }
+    std::cout << std::endl;
+
+Q.move_to_rear();
+
+std::cout << "The QUEUE"; // prints out the queue
+    while (!Q.empty()) {
+        std::cout << Q.firstElement() << " ";
+        Q.pop();
+    }
+    std::cout << std::endl;
+
+
+insertSortList.push(5); // adding in random ints
+insertSortList.push(15);
+insertSortList.push(8);
+insertSortList.push(1);
+insertSortList.push(6);
+insertSortList.push(3);
+insertSortList.push(11);
+insertSortList.push(24);
+insertSortList.push(88);
+insertSortList.push(48);
+
+insertSort(insertSortList); // sort the list
+
+
+
+
+
+}
